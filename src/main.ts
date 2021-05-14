@@ -27,6 +27,9 @@ async function bootstrap() {
   app.enableCors();
   app.use(helmet());
 
-  await app.listen(3000);
+  const PORT = process.env.PORT || 3000;
+
+  await app.listen(PORT);
+  logger.log(`Server is runnirng in ${ await app.getUrl()}`);
 }
 bootstrap();
