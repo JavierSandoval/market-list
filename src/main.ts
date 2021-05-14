@@ -28,6 +28,5 @@ async function bootstrap() {
   app.use(helmet());
 
   await app.listen(3000);
-  logger.log(`Server is runnirng in ${ await app.getUrl()}`);
 }
 bootstrap();
