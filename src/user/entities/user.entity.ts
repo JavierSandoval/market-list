@@ -1,10 +1,12 @@
-import { Entity, Column, PrimaryGeneratedColumn, BeforeInsert, BeforeUpdate } from 'typeorm';
+import { Entity, Column, PrimaryColumn, BeforeInsert, BeforeUpdate, OneToMany } from 'typeorm';
 import { hash } from 'bcrypt';
+import { Buy } from 'src/buy/entities/buy.entity';
+import { List } from 'src/list/entities/list.entity';
 
 @Entity('users')
 export class User {
 
-    @PrimaryGeneratedColumn()
+    @PrimaryColumn()
     id: number;
 
     @Column({ type: 'varchar', length: 45, nullable: false, unique: true })
@@ -21,4 +23,12 @@ export class User {
         }
         this.password = await hash(this.password, 10);
     }
+
+    @OneToMany(type => Buy, buy => buy.user)
+    buys: Buy[];
+
+    @OneToMany(type => List, list => list.user)
+    lists: List[];
+
+
 }
